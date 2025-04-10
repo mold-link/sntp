@@ -1,11 +1,9 @@
-//package netevent
-//author: btfak.com
-//create: 2013-7-20
-
+// package netevent
+// author: btfak.com
+// create: 2013-7-20
 package netevent
 
 import (
-	"fmt"
 	"net"
 	"strconv"
 )
@@ -21,7 +19,6 @@ type _reactor struct {
 }
 
 func (p *_reactor) ListenUnix(addr string, unix UnixHandler) {
-	fmt.Printf("Add listener on %s\n", addr)
 	if p.unix_listeners == nil {
 		p.unix_listeners = make(map[string]UnixHandler)
 	}
@@ -31,12 +28,10 @@ func (p *_reactor) ListenUnix(addr string, unix UnixHandler) {
 	p.unix_listeners[addr] = unix
 	laddr, err := net.ResolveUnixAddr("unix", addr)
 	if err != nil {
-		fmt.Println("resolve addr err")
 		return
 	}
 	c, erl := net.ListenUnix("unix", laddr)
 	if erl != nil {
-		fmt.Printf("Listen err, type: %T; value: %q\n", erl, erl)
 	} else {
 		p.unix_conn[addr] = c
 	}
@@ -47,7 +42,6 @@ func (p *_reactor) ListenUdp(port int, udp UdpClient) {
 	if err == nil {
 		p.listenUdp(laddr, udp)
 	} else {
-		fmt.Println("resolve addr err")
 		return
 	}
 }
@@ -55,15 +49,12 @@ func (p *_reactor) ListenUdp(port int, udp UdpClient) {
 func (p *_reactor) ListenTcp(port int, tcp TcpClient) {
 	p.initReactor()
 	p.tcp_clients[port] = tcp
-	fmt.Println("listening on " + strconv.Itoa(port))
 	laddr, err := net.ResolveTCPAddr("tcp", ":"+strconv.Itoa(port))
 	if err != nil {
-		fmt.Println("resolve addr err")
 		return
 	}
 	c, erl := net.ListenTCP("tcp", laddr)
 	if erl != nil {
-		fmt.Printf("type: %T; value: %q\n", erl, erl)
 	} else {
 		p.tcp_listeners[port] = c
 	}
@@ -72,15 +63,13 @@ func (p *_reactor) ListenTcp(port int, tcp TcpClient) {
 	tcp.SetTcpTransport(transport)
 }
 
-//function for inner-file usage
-//helper function for the udp listening of ipv4 and ipv6
+// function for inner-file usage
+// helper function for the udp listening of ipv4 and ipv6
 func (p *_reactor) listenUdp(addr *net.UDPAddr, udp UdpClient) {
 	p.initReactor()
 	p.udp_listeners[addr.Port] = udp
-	fmt.Println("listening on " + strconv.Itoa(addr.Port))
 	c, erl := net.ListenUDP("udp", addr)
 	if erl != nil {
-		fmt.Printf("type: %T; value: %q\n", erl, erl)
 	} else {
 		p.udp_conn[addr.Port] = c
 	}
@@ -89,7 +78,7 @@ func (p *_reactor) listenUdp(addr *net.UDPAddr, udp UdpClient) {
 	udp.SetUdpTransport(transport)
 }
 
-//init the reactor
+// init the reactor
 func (p *_reactor) initReactor() {
 	if p.udp_listeners == nil {
 		p.udp_listeners = make(map[int]UdpClient)

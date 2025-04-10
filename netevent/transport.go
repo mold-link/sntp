@@ -1,11 +1,9 @@
-//package netevent
-//author: btfak.com
-//create: 2013-7-20
-
+// package netevent
+// author: btfak.com
+// create: 2013-7-20
 package netevent
 
 import (
-	"fmt"
 	"net"
 	"strconv"
 )
@@ -33,12 +31,10 @@ func (p *tcpTransport) setListener(listener *net.TCPListener) {
 func (p *udpTransport) Write(data string, addr string, port int) {
 	laddr, err := net.ResolveUDPAddr("udp", addr+":"+strconv.Itoa(port))
 	if err != nil {
-		fmt.Println("resolve addr err")
 		return
 	}
 	_, er := p.conn.WriteTo([]byte(data), laddr)
 	if er != nil {
-		fmt.Println(er)
 		return
 	}
 }
@@ -46,7 +42,6 @@ func (p *udpTransport) Write(data string, addr string, port int) {
 func (p *tcpTransport) Write(data string, addr string, port int) {
 	_, err := net.ResolveUDPAddr("udp", addr+":"+strconv.Itoa(port))
 	if err != nil {
-		fmt.Println("resolve addr err")
 		return
 	}
 }
@@ -62,12 +57,10 @@ func (p *unixTransport) setConn(conn *net.UnixConn) {
 func (p *unixTransport) Write(data string, addr string, port int) {
 	laddr, err := net.ResolveUDPAddr("udp", addr+":"+strconv.Itoa(port))
 	if err != nil {
-		fmt.Println("resolve addr err")
 		return
 	}
 	_, er := p.conn.WriteTo([]byte(data), laddr)
 	if er != nil {
-		fmt.Println(er)
 		return
 	}
 }

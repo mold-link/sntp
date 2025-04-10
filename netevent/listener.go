@@ -1,7 +1,6 @@
-//package netevent
-//author: btfak.com
-//create: 2013-7-20
-
+// package netevent
+// author: btfak.com
+// create: 2013-7-20
 package netevent
 
 import (

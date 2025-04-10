@@ -1,7 +1,6 @@
-//package sntp
-//author: btfak.com
-//create: 2013-9-25
-
+// package sntp
+// author: btfak.com
+// create: 2013-9-25
 package sntp
 
 import (
@@ -31,13 +30,14 @@ func Serve(req []byte) ([]byte, error) {
 
 // validFormat
 // check the first byte,include:
-// 	LN:must be 0 or 3
-// 	VN:must be 1,2,3 or 4
+//
+//	LN:must be 0 or 3
+//	VN:must be 1,2,3 or 4
 //	Mode:must be 3
 func validFormat(req []byte) bool {
-	var l = req[0] >> 6
-	var v = (req[0] << 2) >> 5
-	var m = (req[0] << 5) >> 5
+	l := req[0] >> 6
+	v := (req[0] << 2) >> 5
+	m := (req[0] << 5) >> 5
 	if (l == LI_NO_WARNING) || (l == LI_ALARM_CONDITION) {
 		if (v >= VN_FIRST) && (v <= VN_LAST) {
 			if m == MODE_CLIENT {
@@ -63,7 +63,7 @@ func ntp2unix(n int64) int64 {
 // format int number to four bytes.
 // big endian.
 func int2bytes(i int64) []byte {
-	var b = make([]byte, 4)
+	b := make([]byte, 4)
 	h1 := i >> 24
 	h2 := (i >> 16) - (h1 << 8)
 	h3 := (i >> 8) - (h1 << 16) - (h2 << 8)
@@ -94,10 +94,10 @@ func int2bytes(i int64) []byte {
       Transmit Timestamp      (see text) time of day
 */
 func generate(req []byte) []byte {
-	var second = unix2ntp(time.Now().Unix())
-	var fraction = unix2ntp(int64(time.Now().Nanosecond()))
-	var res = make([]byte, 48)
-	var vn = req[0] & 0x38
+	second := unix2ntp(time.Now().Unix())
+	fraction := unix2ntp(int64(time.Now().Nanosecond()))
+	res := make([]byte, 48)
+	vn := req[0] & 0x38
 	res[0] = vn + 4
 	res[1] = 1
 	res[2] = req[2]

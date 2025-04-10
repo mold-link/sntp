@@ -1,6 +1,6 @@
-//package sntp
-//author: btfak.com
-//create: 2013-9-25
+// package sntp
+// author: btfak.com
+// create: 2013-9-25
 
 //NTP Message Format
 /*

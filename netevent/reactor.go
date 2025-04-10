@@ -1,11 +1,9 @@
-//package netevent
-//author: btfak.com
-//create: 2013-7-20
-
+// package netevent
+// author: btfak.com
+// create: 2013-7-20
 package netevent
 
 import (
-	"fmt"
 	"net"
 	"runtime"
 	"time"
@@ -52,10 +50,8 @@ func (p *_reactor) Run() {
 		selectTimer(caller)
 	}
 	for {
-		fmt.Println("============")
 		select {
 		case <-listening_chan:
-			fmt.Println("--------")
 		}
 	}
 }
@@ -95,12 +91,10 @@ func handleTcpListener(listener *net.TCPListener, client TcpClient) {
 		data := make([]byte, 1024)
 		conn, err := listener.AcceptTCP()
 		if err != nil {
-			fmt.Println(err)
 			continue
 		}
 		read_length, err := conn.Read(data[0:])
 		if err != nil { // EOF, or worse
-			fmt.Println(err)
 			continue
 		}
 		if read_length > 0 {
@@ -121,12 +115,10 @@ func handleUnixConnection(listener *net.UnixListener, unix UnixHandler) {
 		data := make([]byte, 512)
 		conn, err := listener.AcceptUnix()
 		if err != nil {
-			fmt.Println(err)
 			continue
 		}
 		read_length, err := conn.Read(data[0:])
 		if err != nil { // EOF, or worse
-			fmt.Println(err)
 			continue
 		}
 		if read_length > 0 {

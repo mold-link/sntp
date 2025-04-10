@@ -1,16 +1,16 @@
-//package netapp
-//author: btfak.com
-//create: 2013-9-24
-//update: 2016-08-22
-
+// package netapp
+// author: btfak.com
+// create: 2013-9-24
+// update: 2016-08-22
 package netapp
 
 import (
-	"github.com/btfak/sntp/netevent"
-	"github.com/btfak/sntp/sntp"
 	"net"
 	"strconv"
 	"strings"
+
+	"github.com/mold-link/sntp/netevent"
+	"github.com/mold-link/sntp/sntp"
 )
 
 var handler *Handler
